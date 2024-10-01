@@ -15,7 +15,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "education-eks-${random_string.suffix.result}"
+  cluster_name = "abhi-eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -74,7 +74,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     one = {
-      name = "node-group-1"
+      name = "Frontend"
 
       instance_types = ["t3.small"]
 
@@ -84,7 +84,7 @@ module "eks" {
     }
 
     two = {
-      name = "node-group-2"
+      name = "Spring"
 
       instance_types = ["t3.small"]
 
@@ -92,7 +92,16 @@ module "eks" {
       max_size     = 2
       desired_size = 1
     }
-  }
+    three = {
+      name = "Database"
+
+      instance_types = ["t3.small"]
+
+      min_size     = 1
+      max_size     = 2
+      desired_size = 1
+    }
+  }  
 }
 
 
